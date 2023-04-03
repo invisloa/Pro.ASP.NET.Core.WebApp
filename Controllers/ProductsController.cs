@@ -2,6 +2,7 @@
 using WebApp.Models;
 namespace WebApp.Controllers
 {
+	[ApiController]
 	[Route("api/[controller]")]
 	public class ProductsController : ControllerBase
 	{
@@ -27,7 +28,7 @@ namespace WebApp.Controllers
 		}
 		[HttpPost]
 		public async Task<IActionResult>
-		SaveProduct([FromBody] ProductBindingTarget target)
+		SaveProduct(ProductBindingTarget target)
 		{
 			Product p = target.ToProduct();
 			await context.Products.AddAsync(p);
@@ -35,7 +36,7 @@ namespace WebApp.Controllers
 			return Ok(p);
 		}
 		[HttpPut]
-		public async Task UpdateProduct([FromBody] Product product)
+		public async Task UpdateProduct(Product product)
 		{
 			context.Update(product);
 			await context.SaveChangesAsync();
@@ -49,8 +50,12 @@ namespace WebApp.Controllers
 		[HttpGet("redirect")]
 		public IActionResult Redirect()
 		{
-			return RedirectToAction(nameof(GetProduct), new { Id = 1 });
+			return RedirectToRoute(new
+			{
+				controller = "Products",
+				action = "GetProduct",
+				Id = 1
+			});
 		}
-
 	}
 }

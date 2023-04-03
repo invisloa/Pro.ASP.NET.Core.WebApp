@@ -10,7 +10,6 @@ builder.Services.AddControllers();
 var app = builder.Build();
 app.MapControllers();
 app.MapGet("/", () => "Hello World!");
-var context = app.Services.CreateScope().ServiceProvider
-.GetRequiredService<DataContext>();
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<DataContext>();
 SeedData.SeedDatabase(context);
 app.Run();
