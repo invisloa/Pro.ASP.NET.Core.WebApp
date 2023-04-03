@@ -16,6 +16,9 @@ namespace WebApp.Controllers
 		{
 			return context.Products.AsAsyncEnumerable();
 		}
+
+		[ProducesResponseType(StatusCodes.Status200OK)]
+		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[HttpGet("{id}")]
 		public async Task<IActionResult> GetProduct(long id)
 		{
