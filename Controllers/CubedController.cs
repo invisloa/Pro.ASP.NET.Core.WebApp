@@ -10,9 +10,13 @@ namespace WebApp.Controllers
 		}
 		public IActionResult Cube(double num)
 		{
-			TempData["value"] = num.ToString();
-			TempData["result"] = Math.Pow(num, 3).ToString();
+			Value = num.ToString();
+			Result = Math.Pow(num, 3).ToString();
 			return RedirectToAction(nameof(Index));
 		}
+		[TempData]
+		public string? Value { get; set; }
+		[TempData]
+		public string? Result { get; set; }
 	}
 }
