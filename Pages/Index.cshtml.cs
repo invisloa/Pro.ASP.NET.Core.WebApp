@@ -1,20 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace WebApp.Pages
 {
 	public class IndexModel : PageModel
 	{
-		private readonly ILogger<IndexModel> _logger;
-
-		public IndexModel(ILogger<IndexModel> logger)
+		private DataContext context;
+		public Product? Product { get; set; }
+		public IndexModel(DataContext ctx)
 		{
-			_logger = logger;
+			context = ctx;
 		}
-
-		public void OnGet()
+		//		public async Task OnGetAsync(long id = 1)
+		public async Task<IActionResult> OnGetAsync(long id = 1)
 		{
-
+			Product = await context.Products.FindAsync(id);
+			if (Product == null)
+			{
+				return RedirectToPage("NotFound");
+			}
+			return Page();
 		}
 	}
 }
