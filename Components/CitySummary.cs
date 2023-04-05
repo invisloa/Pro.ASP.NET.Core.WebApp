@@ -1,5 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
+using Microsoft.AspNetCore.Mvc.ViewComponents;
+using Microsoft.AspNetCore.Html;
+
 namespace WebApp.Components
 {
 	public class CitySummary : ViewComponent
@@ -9,14 +12,17 @@ namespace WebApp.Components
 		{
 			data = cdata;
 		}
-		public IViewComponentResult Invoke()
+		public IViewComponentResult Invoke(string themeName = "success")
 		{
-			return View(new CityViewModel
 			{
-				Cities = data.Cities.Count(),
-				Population = data.Cities.Sum(c => c.Population)
-			});
-		}
+				ViewBag.Theme = themeName;
+				return View(new CityViewModel
+				{
+					Cities = data.Cities.Count(),
+					Population = data.Cities.Sum(c => c.Population)
+				});
+			}
 
+		}
 	}
 }
