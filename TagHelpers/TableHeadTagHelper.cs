@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace WebApp.TagHelpers
 {
 	[HtmlTargetElement("tablehead")]
-	public class TableHeadTagHelper : TagHelper
+	public class TableHeadTagHelper : TagHelper // WebApp.TagHelpers.TableHeadTagHelper
 	{
 	public string BgColor { get; set; } = "light";
 		public override async Task ProcessAsync(TagHelperContext context,
